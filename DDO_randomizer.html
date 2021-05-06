@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p { margin: 2px; }
+</style>
+</head>
+<body>
+
+<h1>DDO Class Randomizer</h1>
+
+<p>Randomize Race too?
+<button id="race_rand" onclick=changeSelRace()>Yeah dude!</button>
+<br>
+<p>Customize your Randomness:
+<button id="use_paid" onclick=changeSelFree()>Use paid stuff.</button>
+<p>Select the main class min. level (7-20):<input type="text" id="min_level" name="min_level" value="7" onchange=checkNum("min_level")>
+<p>Select the main class max. level (7-20):<input type="text" id="max_level" name="max_level" value="20" onchange=checkNum("max_level")>
+
+<br><br><br>
+<button onclick="ddoRandomizer()">RANDOMIZE!</button>
+<button onclick="clearer()">Clear results.</button>
+
+<h3 id="rand_finished">Results here.</h3>
+
+
+
+<script>
+function checkNum(el){
+	if (document.getElementById(el).value>20)
+		{document.getElementById(el).value=20}
+	else if (document.getElementById(el).value<7)
+		{document.getElementById(el).value=7}
+	else if (isNaN(document.getElementById(el).value))
+		{if (el=="min_level")
+			document.getElementById(el).value=7
+		else
+			document.getElementById(el).value=20}
+}
+function changeSelRace(){
+	if (document.getElementById("race_rand").innerHTML=="Yeah dude!"){
+		document.getElementById("race_rand").innerHTML = "Nah, I'll choose."
+	} else {
+		document.getElementById("race_rand").innerHTML = "Yeah dude!"
+	}
+}
+function changeSelFree(){
+	if (document.getElementById("use_paid").innerHTML=="Use paid stuff."){
+		document.getElementById("use_paid").innerHTML = "Only free stuff."
+	} else {
+		document.getElementById("use_paid").innerHTML = "Use paid stuff."
+	}
+}
+function ddoRandomizer(){
+	ans_text = "<br>"
+	sec_class = ""
+	sec_level = 0
+	last_class = ""
+	last_level = 0
+		race_list = ["Dwarf", "Elf", "Halfling", "Human"]
+		class_list = ["Barbarian", "Bard",  "Cleric",  "Fighter",  "Paladin",  "Ranger",  "Rogue",  "Sorcerer",  "Wizard"]
+	if (document.getElementById("use_paid").innerHTML=="Use paid stuff.")
+	{
+		race_list = race_list.concat(["Aasimar", "Dragonborn", "Drow", "Gnome", "Half-elf", "Half-orc", "Shifter", "Tiefling", "Warforged", "Wood Elf"])
+		class_list = class_list.concat(["Alchemist", "Artificer", "Druid", "Favored Soul", "Monk", "Warlock"])
+	}
+	if (document.getElementById("race_rand").innerHTML=="Yeah dude!") {
+		ans_text += race_list[randInt(0,race_list.length-1)]
+	}
+	
+	fst_class = class_list[randInt(0,class_list.length-1)]
+	fst_level = randInt(Number(document.getElementById("min_level").value),Number(document.getElementById("max_level").value))
+	ans_text += " "+fst_class+" "+fst_level
+	if (fst_level<20) {
+		sec_class = fst_class
+		while(sec_class == fst_class)
+			sec_class = class_list[randInt(0,class_list.length-1)]
+		sec_level = randInt(Math.max(1,Math.ceil((20-fst_level)/2)),Math.min(20-fst_level,fst_level))
+		ans_text += " "+sec_class+" "+sec_level
+		}
+	if (fst_level+sec_level<20) {
+		last_class = fst_class
+		while((last_class == sec_class) || (last_class == fst_class))
+			last_class = class_list[randInt(0,class_list.length-1)]
+		last_level = 20-fst_level-sec_level
+		ans_text += " "+last_class+" "+last_level
+		}
+	document.getElementById("rand_finished").innerHTML+=ans_text
+}
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+function clearer() {
+  document.getElementById("rand_finished").innerHTML="Results here."
+}
+</script> 
+<br><br><br>
+<p>Randomizer made by Goroshi.<br>
+Fell welcome to change and do your own too.<br>
+All the source code is on this page.</p>
+</body>
+</html>
