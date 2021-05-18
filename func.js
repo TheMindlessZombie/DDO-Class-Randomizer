@@ -8,17 +8,29 @@ function onLoadFunctions() {
 	}
 }
 function changeSelPaid(sel){
-	aux1 = document.getElementsByClassName("Prem")
-	for (let i = 0; i<aux1.length; i++) {
-		aux2 = aux1[i].children;
-		for (let j = 0; j<aux2.length; j++) {
-			if (sel) {
+	if (sel == 1) {
+		aux = document.getElementsByClassName("notSelected");
+		aux1 = aux.length;
+		for (let i = 0; i<aux1; i++) {
+			aux[0].className = "Selected";
+		}
+	}
+	if (sel == 2) {
+		aux1 = document.getElementsByClassName("Prem")
+		for (let i = 0; i<aux1.length; i++) {
+			aux2 = aux1[i].children;
+			for (let j = 0; j<aux2.length; j++) {
 				aux2[j].className="notSelected";
-			} else {
-				aux2[j].className="Selected";
 			}
 		}
 	}
+	if (sel == 3) {
+		aux2 = document.getElementById("iconics").children
+		for (let j = 0; j<aux2.length; j++) {
+			aux2[j].className="notSelected";
+		}
+	}
+	document.getElementById("useHearth").className = "";
 }
 function toggleSel(id){
 	if (id.toElement.className == "Selected"){
@@ -33,6 +45,35 @@ function getRaces() {
 	aux3 = [];
 	for (let i = 0; i<aux2.length; i++){aux3.push(aux2[i].alt);}
 	return aux3;
+}
+function getIconics() {
+	aux = document.getElementById("iconics");
+	aux2 = aux.getElementsByClassName("Selected");
+	aux3 = [];
+	for (let i = 0; i<aux2.length; i++){aux3.push(aux2[i].alt);}
+	return aux3;
+}
+function getIconicClass(race) {
+	switch(race) {
+		case "Scourge":
+			return "Ranger";
+		case "Bladeforged":
+			return "Paladin";
+		case "Deep Gnome":
+			return "Wizard";
+		case "PDK":
+			return "Fighter";
+		case "Razorclaw":
+			return "Barbarian";
+		case "Scoundrel":
+			return "Bard";
+		case "Shadar-kai":
+			return "Rogue";
+		case "Morninglord":
+			return "Cleric";
+		default:
+			return undefined;
+	}
 }
 function getClasses() {
 	aux = document.getElementById("class-sel");
@@ -77,13 +118,19 @@ function sel_levels(number) {
 }
 function ddoRandomizer(){
 	race_list = getRaces();
+	iconic_list = getIconics();
 	class_list = getClasses();
 	level_list = getLevelOptions();
 	lvl_opts = level_list[randInt(0,level_list.length)];
 	class_choices = sel_class(class_list,lvl_opts);
 	level_choices = sel_levels(lvl_opts);
 	race_choice = race_list[randInt(0,race_list.length)];
-	
+	if (iconic_list.indexOf(race_choice) != -1 && !(document.getElementById("useHearth").checked)) {
+		needed = getIconicClass(race_choice);
+		if (class_choices.indexOf(needed)==-1){
+			class_choices[randInt(0,class_choices.length)] = needed;
+		}
+	}
 	ans_text = "<tr>"+"<th>"+race_choice+"</th>";
 	for (let i=0;i<lvl_opts;i++) {
 		ans_text += "<th>"+class_choices[i]+" "+level_choices[i]+"</th>"

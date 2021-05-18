@@ -29,6 +29,9 @@ img {
   background-color: red;
   padding: 10px;
 }
+.Prem#iconics {
+	background-color: orange;
+}
 .Selected {
 	opacity: 100%;
 }
@@ -42,6 +45,10 @@ img {
 }
 .first {
 	margin-right: 10px;
+}
+.mid {
+	margin-right: 10px;
+	margin-left: 10px;
 }
 .last {
 	margin-left: 10px;

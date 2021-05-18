@@ -15,8 +15,9 @@
 <div id="top-part">
 	<h4>Easier toggle:</h4>
 	<div class="buttons">
-		<button class="first" onclick=changeSelPaid(0)>Use premmium class and Race.</button>
-		<button class="last" onclick=changeSelPaid(1)>Don't use premmium class and Race.</button>
+		<button class="first" onclick=changeSelPaid(1)>Use all classes and races.</button>
+		<button class="mid" onclick=changeSelPaid(2)>Don't use premmium class and Race.</button>
+		<button class="last" onclick=changeSelPaid(3)>Don't use iconics.</button>
 	</div>
 	<h3> Race selector</h3>
 	<div id="race-sel" class="grid-container">
@@ -38,6 +39,17 @@
 		<img src="./icons/Tiefling_race_icon.png" alt="Tiefling" class="Selected"/>
 		<img src="./icons/Warforged_race_icon.png" alt="Warforged" class="Selected"/>
 		<img src="./icons/Wood_Elf_race_icon.png" alt="Wood-Elf" class="Selected"/>
+		</div>
+		<div class="Prem" id="iconics">
+			<img src="./icons/Scourge_race_icon.png" alt="Scourge" class="Selected"/>
+			<img src="./icons/Bladeforged_race_icon.png" alt="Bladeforged" class="Selected"/>
+			<img src="./icons/Deep Gnome_race_icon.png" alt="Deep Gnome" class="Selected"/>
+			<img src="./icons/PDK_race_icon.png" alt="PDK" class="Selected"/>
+			<img src="./icons/Razorclaw_race_icon.png" alt="Razorclaw" class="Selected"/>
+			<img src="./icons/Scoundrel_race_icon.png" alt="Scoundrel" class="Selected"/>
+			<img src="./icons/Shadar-kai_race_icon.png" alt="Shadar-kai" class="Selected"/>
+			<img src="./icons/Morninglord_race_icon.png" alt="Morninglord" class="Selected"/>
+		<input type="Checkbox" value="useHearth" id="useHearth">Ignore forced level.
 		</div>
 		</div>
 	</div>
@@ -93,7 +105,7 @@
 	<br><br>
 	<p>Randomizer made by Goroshi.<br>
 	Fell welcome to change and do your own too.<br>
-	All the source code is on this page.</p>
+	All the source is available on github.</p>
 </div>
 </body>
 </html>
