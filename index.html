@@ -1,102 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-p { margin: 2px; }
-</style>
+<title>DDO Class Randomizer</title>
+<link rel="stylesheet" href="styles.css">
+<script async src="func.js"></script>
 </head>
-<body>
-
-<h1>DDO Class Randomizer</h1>
-
-<p>Randomize Race too?
-<button id="race_rand" onclick=changeSelRace()>Yeah dude!</button>
-<br>
-<p>Customize your Randomness:
-<button id="use_paid" onclick=changeSelFree()>Use paid stuff.</button>
-<p>Select the main class min. level (7-20):<input type="text" id="min_level" name="min_level" value="7" onchange=checkNum("min_level")>
-<p>Select the main class max. level (7-20):<input type="text" id="max_level" name="max_level" value="20" onchange=checkNum("max_level")>
-
-<br><br><br>
-<button onclick="ddoRandomizer()">RANDOMIZE!</button>
-<button onclick="clearer()">Clear results.</button>
-
-<h3 id="rand_finished">Results here.</h3>
-
-
-
-<script>
-function checkNum(el){
-	if (document.getElementById(el).value>20)
-		{document.getElementById(el).value=20}
-	else if (document.getElementById(el).value<7)
-		{document.getElementById(el).value=7}
-	else if (isNaN(document.getElementById(el).value))
-		{if (el=="min_level")
-			document.getElementById(el).value=7
-		else
-			document.getElementById(el).value=20}
-}
-function changeSelRace(){
-	if (document.getElementById("race_rand").innerHTML=="Yeah dude!"){
-		document.getElementById("race_rand").innerHTML = "Nah, I'll choose."
-	} else {
-		document.getElementById("race_rand").innerHTML = "Yeah dude!"
-	}
-}
-function changeSelFree(){
-	if (document.getElementById("use_paid").innerHTML=="Use paid stuff."){
-		document.getElementById("use_paid").innerHTML = "Only free stuff."
-	} else {
-		document.getElementById("use_paid").innerHTML = "Use paid stuff."
-	}
-}
-function ddoRandomizer(){
-	ans_text = "<br>"
-	sec_class = ""
-	sec_level = 0
-	last_class = ""
-	last_level = 0
-		race_list = ["Dwarf", "Elf", "Halfling", "Human"]
-		class_list = ["Barbarian", "Bard",  "Cleric",  "Fighter",  "Paladin",  "Ranger",  "Rogue",  "Sorcerer",  "Wizard"]
-	if (document.getElementById("use_paid").innerHTML=="Use paid stuff.")
-	{
-		race_list = race_list.concat(["Aasimar", "Dragonborn", "Drow", "Gnome", "Half-elf", "Half-orc", "Shifter", "Tiefling", "Warforged", "Wood Elf"])
-		class_list = class_list.concat(["Alchemist", "Artificer", "Druid", "Favored Soul", "Monk", "Warlock"])
-	}
-	if (document.getElementById("race_rand").innerHTML=="Yeah dude!") {
-		ans_text += race_list[randInt(0,race_list.length-1)]
-	}
-	
-	fst_class = class_list[randInt(0,class_list.length-1)]
-	fst_level = randInt(Number(document.getElementById("min_level").value),Number(document.getElementById("max_level").value))
-	ans_text += " "+fst_class+" "+fst_level
-	if (fst_level<20) {
-		sec_class = fst_class
-		while(sec_class == fst_class)
-			sec_class = class_list[randInt(0,class_list.length-1)]
-		sec_level = randInt(Math.max(1,Math.ceil((20-fst_level)/2)),Math.min(20-fst_level,fst_level))
-		ans_text += " "+sec_class+" "+sec_level
-		}
-	if (fst_level+sec_level<20) {
-		last_class = fst_class
-		while((last_class == sec_class) || (last_class == fst_class))
-			last_class = class_list[randInt(0,class_list.length-1)]
-		last_level = 20-fst_level-sec_level
-		ans_text += " "+last_class+" "+last_level
-		}
-	document.getElementById("rand_finished").innerHTML+=ans_text
-}
-function randInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
-function clearer() {
-  document.getElementById("rand_finished").innerHTML="Results here."
-}
-</script> 
-<br><br><br>
-<p>Randomizer made by Goroshi.<br>
-Fell welcome to change and do your own too.<br>
-All the source code is on this page.</p>
+<body onload=onLoadFunctions()>
+<div id="title">
+	<h1>DDO Class Randomizer</h1>
+</div>
+<div id="top-part">
+	<h4>Easier toggle:</h4>
+	<div class="buttons">
+		<button class="first" onclick=changeSelPaid(0)>Use premmium class and Race.</button>
+		<button class="last" onclick=changeSelPaid(1)>Don't use premmium class and Race.</button>
+	</div>
+	<h3> Race selector</h3>
+	<div id="race-sel" class="grid-container">
+		<div class="block">
+		<div class="Free">
+		<img src="./icons/Dwarf_race_icon.png" alt="Dwarf" class="Selected"/>
+		<img src="./icons/Elf_race_icon.png" alt="Elf" class="Selected"/>
+		<img src="./icons/Halfling_race_icon.png" alt="Halfling" class="Selected"/>
+		<img src="./icons/Human_race_icon.png" alt="Human" class="Selected"/>
+		</div>
+		<div class="Prem">
+		<img src="./icons/Aasimar_race_icon.png" alt="Aasimar" class="Selected"/>
+		<img src="./icons/Dragonborn_race_icon.png" alt="Dragonborn" class="Selected"/>
+		<img src="./icons/Drow_race_icon.png" alt="Drow" class="Selected"/>
+		<img src="./icons/Gnome_race_icon.png" alt="Gnome" class="Selected"/>
+		<img src="./icons/Half-Elf_race_icon.png" alt="Half-Elf" class="Selected"/>
+		<img src="./icons/Half-Orc_race_icon.png" alt="Half-Orc" class="Selected"/>
+		<img src="./icons/Shifter_race_icon.png" alt="Shifter" class="Selected"/>
+		<img src="./icons/Tiefling_race_icon.png" alt="Tiefling" class="Selected"/>
+		<img src="./icons/Warforged_race_icon.png" alt="Warforged" class="Selected"/>
+		<img src="./icons/Wood_Elf_race_icon.png" alt="Wood-Elf" class="Selected"/>
+		</div>
+		</div>
+	</div>
+	<h3> Class selector</h3>
+	<div id="class-sel" class="grid-container">
+		<div class="block">
+		<div class="Free">
+			<img src="./icons/Barbarian.png" alt="Barbarian" class="Selected"/>
+			<img src="./icons/Bard.png" alt="Bard" class="Selected"/>
+			<img src="./icons/Cleric.png" alt="Cleric" class="Selected"/>
+			<img src="./icons/Fighter.png" alt="Fighter" class="Selected"/>
+			<img src="./icons/Paladin.png" alt="Paladin" class="Selected"/>
+			<img src="./icons/Ranger.png" alt="Ranger" class="Selected"/>
+			<img src="./icons/Rogue.png" alt="Rogue" class="Selected"/>
+			<img src="./icons/Sorcerer.png" alt="Sorcerer" class="Selected"/>
+			<img src="./icons/Wizard.png" alt="Wizard" class="Selected"/>
+		</div>
+		<div class="Prem">
+			<img src="./icons/Alchemist.png" alt="Alchemist" class="Selected"/>
+			<img src="./icons/Artificer.png" alt="Artificer" class="Selected"/>
+			<img src="./icons/Druid.png" alt="Druid" class="Selected"/>
+			<img src="./icons/FavoredSoul.png" alt="FavoredSoul" class="Selected"/>
+			<img src="./icons/Monk.png" alt="Monk" class="Selected"/>
+			<img src="./icons/Warlock.png" alt="Warlock" class="Selected"/>
+		</div>
+		</div>
+	</div>
+	<table>
+	<tr>
+		<th><p>Select the main class min. level (7-20):<input type="text" id="min_level" name="min_level" value="7" onchange=checkNum("min_level")>
+		<th><p>Select the number of classes enabled
+		<p>It's the first check, so equal chance for each!
+	<tr>
+		<th><p>Select the main class max. level (7-20):<input type="text" id="max_level" name="max_level" value="20" onchange=checkNum("max_level")>
+		<th><div class="buttons" id="level-opts">
+			<button class="Selected">1</button>
+			<button class="Selected">2</button>
+			<button class="Selected">3</button>
+		</div>
+	</table>
+	<div class="buttons">
+		<button class="first" onclick="ddoRandomizer()">RANDOMIZE!</button>
+		<button class="last" onclick="clearer()">Clear results.</button>
+	</div>
+	<h3>Results here.</h3>
+</div>
+<div id="results">
+	<table id="rand_finished">
+		
+	</table>
+</div>
+<div id="bot-part">
+	<br><br>
+	<p>Randomizer made by Goroshi.<br>
+	Fell welcome to change and do your own too.<br>
+	All the source code is on this page.</p>
+</div>
 </body>
 </html>
