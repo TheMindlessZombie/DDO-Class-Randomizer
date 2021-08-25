@@ -32,11 +32,11 @@ function changeSelPaid(sel){
 	}
 	document.getElementById("useHearth").className = "";
 }
-function toggleSel(id){
-	if (id.toElement.className == "Selected"){
-		id.toElement.className = "notSelected";
+function toggleSel(clickInfo){
+	if (clickInfo.target.className == "Selected"){
+		clickInfo.target.className = "notSelected";
 	} else {
-		id.toElement.className = "Selected";
+		clickInfo.target.className = "Selected";
 	}
 }
 function getRaces() {
