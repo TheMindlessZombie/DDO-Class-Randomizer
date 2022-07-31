@@ -1,0 +1,73 @@
+body {
+	max-width: 900px;
+	margin: auto;
+	width: 100%;
+	overflow-x: hidden;
+}
+* {
+	margin: auto;
+}
+img {
+	width:  50px;
+	height: 50px;
+}
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  min-width: 4*70px;
+  max-width: 100%;
+}
+.notSelected {
+	opacity: 0.3;
+}
+.Free {
+  background-color: lightblue;
+  padding: 10px;
+ }
+.Prem {
+  background-color: red;
+  padding: 10px;
+}
+.Prem#iconics {
+	background-color: orange;
+}
+.Selected {
+	opacity: 100%;
+}
+.block {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.buttons {
+   display: flex;
+}
+.first {
+	margin-right: 10px;
+}
+.mid {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+.last {
+	margin-left: 10px;
+}
+#title {
+	font-size: 2em;
+}
+h1, h2, h3, h4 {
+	text-align: center;
+}
+#bot-part {
+	position: relative;
+	bottom: 0;
+}
+p {
+	margin-right: 4px;
+}
+#rand_finished{
+	min-width: 50%;
+	max-width: 80%;
+	text-align: right;
+}
